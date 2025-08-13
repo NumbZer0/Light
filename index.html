@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SoyDevZer0</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <tfont-sizeitle>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Press Start 2P', monospace;
         }
 
         body {
@@ -19,7 +22,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-family: 'Orbitron', monospace;
+            font-family: 'Press Start 2P', monospace;
             overflow: hidden;
         }
 
@@ -48,10 +51,11 @@
 
         /* Título principal com efeito RGB */
         .title {
-            font-size: 4rem;
-            font-weight: 900;
+            font-size: 3rem;
+            font-weight: normal;
             text-align: center;
             margin-bottom: 3rem;
+            font-family: 'Press Start monospaceospace, monospace;
             background: linear-gradient(45deg, #ff0000, #000000, #ff0000, #000000);
             background-size: 400% 400%;
             -webkit-background-clip: text;
@@ -72,25 +76,28 @@
 
         @keyframes textPulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: 'Orbitron'tron'(1.05); }
         }
 
-        /* Container do botão */
-        .button-container {
-            position: relative;
+        /* Container dos botões */
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            align-items: center;
             margin-bottom: 2rem;
         }
 
-        /* Botão Emperor Hub */
-        .emperor-btn {
+        /* Estilo base para botões */
+        .game-btn {
             background: linear-gradient(145deg, #1a1a1a, #000000);
             border: 2px solid #ff0000;
             border-radius: 15px;
             color: #ff0000;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.3rem;
-            font-weight: 700;
-            padding: 15px 80px;
+            font-family: 'Orbigt'', monospace;
+            font-size: 1rem;
+            font-weight: normal;
+            padding: 18px 70px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
@@ -102,11 +109,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            min-width: 350px;
+            min-width: 380px;
+            text-decoration: none;
         }
 
-        .emperor-btn:hover {
+        .game-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(255, 0, 0, 0.6);
             border-color: #ff3333;
@@ -114,12 +121,12 @@
             background: linear-gradient(145deg, #2a2a2a, #111111);
         }
 
-        .emperor-btn:active {
+        .game-btn:active {
             transform: translateY(0);
         }
 
         /* Efeito de onda no botão */
-        .emperor-btn::before {
+        .game-btn::before {
             content: '';
             position: absolute;
             top: 50%;
@@ -132,9 +139,27 @@
             border-radius: 50%;
         }
 
-        .emperor-btn:active::before {
+        .game-btn:active::before {
             width: 300px;
             height: 300px;
+        }
+
+        /* Botão KRNL com cor diferente */
+        .krnl-btn {
+            border-color: #00ff00;
+            color: #00ff00;
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.4),
+                        inset 0 1px 0 rgba(0, 255, 0, 0.1);
+        }
+
+        .krnl-btn:hover {
+            border-color: #33ff33;
+            color: #33ff33;
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.6);
+        }
+
+        .krnl-btn::before {
+            background: radial-gradient(circle, rgba(0, 255, 0, 0.4), transparent);
         }
 
         /* Container do script */
@@ -142,8 +167,8 @@
             background: rgba(0, 0, 0, 0.95);
             border: 1px solid #ff0000;
             border-radius: 12px;
-            padding: 20px;
-            margin-top: 20px;
+            padding: 0;
+            margin: 0;
             position: relative;
             max-width: 600px;
             width: 90%;
@@ -154,18 +179,33 @@
             opacity: 0;
             transition: all 0.5s ease;
             pointer-events: none;
+            height: 0;
+            overflow: hidden;
+            border: none;
+            box-shadow: none;
         }
 
         .script-container.show {
             transform: translateY(0);
             opacity: 1;
             pointer-events: auto;
+            height: auto;
+            padding: 20px;
+            margin: 15px 0;
+            border: 1px solid #ff0000;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3),
+                        0 0 20px rgba(255, 0, 0, 0.1);
         }
 
         .script-container.hide {
             transform: translateY(-20px);
             opacity: 0;
             pointer-events: none;
+            height: 0;
+            padding: 0;
+            margin: 0;
+            border: none;
+            box-shadow: none;
         }
 
         /* Cabeçalho do script */
@@ -180,8 +220,9 @@
 
         .script-title {
             color: #ff0000;
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 0.8rem;
+            font-weight: normal;
+            font-family: 'Ofont-size monospace;
         }
 
         /* Botão de copiar */
@@ -190,8 +231,9 @@
             border: 1px solid #ff0000;
             border-radius: 8px;
             color: #ff0000;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.7rem;
+            font-weight: normal;
             padding: 8px 15px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -215,11 +257,12 @@
             border: 1px solid rgba(255, 0, 0, 0.3);
             border-radius: 8px;
             padding: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
+            font-family: 'Press Start font-sizet-size, monospace;
+         font-weighte: 0.6rem;
+            font-weight: normal;
             color: #ff3333;
             word-break: break-all;
-            line-height: 1.4;
+            line-height: 1.8;
             user-select: all;
         }
 
@@ -228,28 +271,63 @@
             font-size: 1.2rem;
             transition: all 0.3s ease;
             transform: translateY(0);
+            font-family: 'Orbitron', sans-serif;
         }
 
         .arrow-icon.rotated {
             transform: rotate(180deg);
         }
 
+        /* Download icon */
+        .download-icon {
+            font-size: 1.2rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
         /* Responsividade */
         @media (max-width: 768px) {
             .title {
-                font-size: 2.5rem;
+                font-size: 1.8rem;
                 margin-bottom: 2rem;
             }
             
-            .emperor-btn {
-                font-size: 1.1rem;
-                padding: 12px 50px;
-                min-width: 300px;
+            .game-btn {
+                font-size: 0.8rem;
+                padding: 12px 40px;
+                min-width: 280px;
             }
             
             .script-container {
                 margin-top: 15px;
                 padding: 15px;
+            }
+
+            .script-title {
+                font-size: 0.7rem;
+            }
+
+            .copy-btn {
+                font-size: 0.6rem;
+                padding: 6px 12px;
+            }
+
+            .script-code {
+                font-size: 0.5rem;
+                line-height: 2;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.4rem;
+                letter-spacing: 1px;
+            }
+            
+            .game-btn {
+                font-size: 0.7rem;
+                padding: 10px 30px;
+                min-width: 250px;
+                letter-spacing: 1px;
             }
         }
     </style>
@@ -261,23 +339,31 @@
     <!-- Título principal -->
     <h1 class="title">SoyDevZer0</h1>
 
-    <!-- Container do botão -->
-    <div class="button-container">
-        <button class="emperor-btn" id="emperorBtn">
+    <!-- Container dos botões -->
+    <div class="buttons-container">
+        <!-- Botão Emper2P'Hub -->
+        <button class="game-btn" id="emperorBtn">
             <span>Emperor Hub</span>
-            <span class="arrow-icon" id="arrowIcon">▼</span>
         </button>
-    </div>
 
-    <!-- Container do script -->
-    <div class="script-container" id="scriptContainer">
-        <div class="script-header">
-            <span class="script-title">Emperor Hub Script</span>
-            <button class="copy-btn" id="copyBtn">Copiar</button>
+        <!-- Container do script -->
+        <div class="script-container" id="scriptContainer">
+            <div class="script-header">
+                <span class="script-title">Emperor Hub Script</span>
+                <button class="copy-btn" id="copyBtn">Copiar</button>
+            </div>
+            <div class="script-code" id="scriptCode">
+                loadstring(game:HttpGet('https://raw.githubusercontent.com/NumbZer0/True-Emperor-Hub/refs/heads/main/EmperorHub.lua'))()
+            </div>
         </div>
-        <div class="script-code" id="scriptCode">
-            loadstring(game:HttpGet('https://raw.githubusercontent.com/NumbZer0/True-Emperor-Hub/refs/heads/main/EmperorHub.lua'))()
-        </div>
+
+        <!-- Botão KRNL -->
+        <a href="https://krnl.webfiles.pro/file/krnl_release_2.685.797_2025.8.11_43.apk" 
+           class="game-btn krnl-btn" 
+           target="_blank"
+           download>
+            <span>Download KRNL</span>
+        </a>
     </div>
 
     <script>
@@ -311,7 +397,6 @@
         const scriptContainer = document.getElementById('scriptContainer');
         const copyBtn = document.getElementById('copyBtn');
         const scriptCode = document.getElementById('scriptCode');
-        const arrowIcon = document.getElementById('arrowIcon');
         
         let isScriptVisible = false;
 
@@ -321,7 +406,6 @@
                 // Mostrar script
                 scriptContainer.classList.remove('hide');
                 scriptContainer.classList.add('show');
-                arrowIcon.classList.add('rotated');
                 emperorBtn.style.transform = 'scale(0.95)';
                 setTimeout(() => {
                     emperorBtn.style.transform = 'scale(1)';
@@ -330,7 +414,6 @@
                 // Esconder script
                 scriptContainer.classList.remove('show');
                 scriptContainer.classList.add('hide');
-                arrowIcon.classList.remove('rotated');
                 emperorBtn.style.transform = 'scale(1.05)';
                 setTimeout(() => {
                     emperorBtn.style.transform = 'scale(1)';
@@ -385,6 +468,16 @@
 
         title.addEventListener('mouseleave', function() {
             this.style.transform = 'scale(1) rotate(0deg)';
+        });
+
+        // Efeito sonoro de clique nos botões (visual)
+        document.querySelectorAll('.game-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.5)';
+                setTimeout(() => {
+                    this.style.boxShadow = '';
+                }, 200);
+            });
         });
     </script>
 </body>
