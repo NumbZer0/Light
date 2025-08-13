@@ -24,6 +24,7 @@
             justify-content: center;
             font-family: 'Press Start 2P', monospace;
             overflow: hidden;
+            padding-top: 80px; /* Adicionado para descer todo o conteúdo */
         }
 
         /* Efeito de partículas no fundo */
@@ -67,6 +68,7 @@
                          0 0 40px rgba(255, 0, 0, 0.6),
                          0 0 60px rgba(255, 0, 0, 0.4);
             letter-spacing: 3px;
+            margin-top: 40px; /* Adicionado para descer o título */
         }
 
         @keyframes rgbGlow {
@@ -83,9 +85,10 @@
         .buttons-container {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 20px; /* Aumentado o espaçamento entre botões */
             align-items: center;
             margin-bottom: 2rem;
+            width: 100%;
         }
 
         /* Estilo base para botões */
@@ -97,7 +100,7 @@
             font-family: 'Press Start 2P', monospace;
             font-size: 1rem;
             font-weight: normal;
-            padding: 18px 70px;
+            padding: 25px 80px; /* Aumentado o padding para botões maiores */
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
@@ -109,8 +112,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 380px;
+            min-width: 400px; /* Aumentado a largura mínima */
             text-decoration: none;
+            width: auto; /* Permitir que os botões se expandam conforme necessário */
         }
 
         .game-btn:hover {
@@ -168,7 +172,7 @@
             border: 1px solid #ff0000;
             border-radius: 12px;
             padding: 0;
-            margin: 0;
+            margin: 20px 0; /* Aumentado a margem para mais espaçamento */
             position: relative;
             max-width: 600px;
             width: 90%;
@@ -191,7 +195,7 @@
             pointer-events: auto;
             height: auto;
             padding: 20px;
-            margin: 15px 0;
+            margin: 20px 0; /* Aumentado a margem para mais espaçamento */
             border: 1px solid #ff0000;
             box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3),
                         0 0 20px rgba(255, 0, 0, 0.1);
@@ -286,15 +290,20 @@
 
         /* Responsividade */
         @media (max-width: 768px) {
+            body {
+                padding-top: 40px; /* Ajuste para mobile */
+            }
+            
             .title {
                 font-size: 1.8rem;
                 margin-bottom: 2rem;
+                margin-top: 20px; /* Ajuste para mobile */
             }
             
             .game-btn {
                 font-size: 0.8rem;
-                padding: 12px 40px;
-                min-width: 280px;
+                padding: 20px 50px; /* Ajuste para mobile */
+                min-width: 300px; /* Ajuste para mobile */
             }
             
             .script-container {
@@ -325,7 +334,7 @@
             
             .game-btn {
                 font-size: 0.7rem;
-                padding: 10px 30px;
+                padding: 15px 30px; /* Ajuste para mobile */
                 min-width: 250px;
                 letter-spacing: 1px;
             }
@@ -481,417 +490,4 @@
         });
     </script>
 </body>
-</html>        @keyframes rgbGlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        @keyframes textPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: 'Orbitron'tron'(1.05); }
-        }
-
-        /* Container dos botões */
-        .buttons-container {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        /* Estilo base para botões */
-        .game-btn {
-            background: linear-gradient(145deg, #1a1a1a, #000000);
-            border: 2px solid #ff0000;
-            border-radius: 15px;
-            color: #ff0000;
-            font-family: 'Orbigt'', monospace;
-            font-size: 1rem;
-            font-weight: normal;
-            padding: 18px 70px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4),
-                        inset 0 1px 0 rgba(255, 0, 0, 0.1);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 380px;
-            text-decoration: none;
-        }
-
-        .game-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.6);
-            border-color: #ff3333;
-            color: #ff3333;
-            background: linear-gradient(145deg, #2a2a2a, #111111);
-        }
-
-        .game-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Efeito de onda no botão */
-        .game-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(255, 0, 0, 0.4), transparent);
-            transition: width 0.6s, height 0.6s;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-        }
-
-        .game-btn:active::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        /* Botão KRNL com cor diferente */
-        .krnl-btn {
-            border-color: #00ff00;
-            color: #00ff00;
-            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.4),
-                        inset 0 1px 0 rgba(0, 255, 0, 0.1);
-        }
-
-        .krnl-btn:hover {
-            border-color: #33ff33;
-            color: #33ff33;
-            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.6);
-        }
-
-        .krnl-btn::before {
-            background: radial-gradient(circle, rgba(0, 255, 0, 0.4), transparent);
-        }
-
-        /* Container do script */
-        .script-container {
-            background: rgba(0, 0, 0, 0.95);
-            border: 1px solid #ff0000;
-            border-radius: 12px;
-            padding: 0;
-            margin: 0;
-            position: relative;
-            max-width: 600px;
-            width: 90%;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3),
-                        0 0 20px rgba(255, 0, 0, 0.1);
-            transform: translateY(-20px);
-            opacity: 0;
-            transition: all 0.5s ease;
-            pointer-events: none;
-            height: 0;
-            overflow: hidden;
-            border: none;
-            box-shadow: none;
-        }
-
-        .script-container.show {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: auto;
-            height: auto;
-            padding: 20px;
-            margin: 15px 0;
-            border: 1px solid #ff0000;
-            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3),
-                        0 0 20px rgba(255, 0, 0, 0.1);
-        }
-
-        .script-container.hide {
-            transform: translateY(-20px);
-            opacity: 0;
-            pointer-events: none;
-            height: 0;
-            padding: 0;
-            margin: 0;
-            border: none;
-            box-shadow: none;
-        }
-
-        /* Cabeçalho do script */
-        .script-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.4);
-        }
-
-        .script-title {
-            color: #ff0000;
-            font-size: 0.8rem;
-            font-weight: normal;
-            font-family: 'Ofont-size monospace;
-        }
-
-        /* Botão de copiar */
-        .copy-btn {
-            background: rgba(255, 0, 0, 0.2);
-            border: 1px solid #ff0000;
-            border-radius: 8px;
-            color: #ff0000;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 0.7rem;
-            font-weight: normal;
-            padding: 8px 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .copy-btn:hover {
-            background: rgba(255, 0, 0, 0.3);
-            transform: scale(1.05);
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-        }
-
-        .copy-btn.copied {
-            background: rgba(0, 255, 0, 0.2);
-            border-color: #00ff00;
-            color: #00ff00;
-        }
-
-        /* Área do código */
-        .script-code {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            border-radius: 8px;
-            padding: 15px;
-            font-family: 'Press Start font-sizet-size, monospace;
-         font-weighte: 0.6rem;
-            font-weight: normal;
-            color: #ff3333;
-            word-break: break-all;
-            line-height: 1.8;
-            user-select: all;
-        }
-
-        /* Seta indicativa */
-        .arrow-icon {
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            transform: translateY(0);
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .arrow-icon.rotated {
-            transform: rotate(180deg);
-        }
-
-        /* Download icon */
-        .download-icon {
-            font-size: 1.2rem;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .title {
-                font-size: 1.8rem;
-                margin-bottom: 2rem;
-            }
-            
-            .game-btn {
-                font-size: 0.8rem;
-                padding: 12px 40px;
-                min-width: 280px;
-            }
-            
-            .script-container {
-                margin-top: 15px;
-                padding: 15px;
-            }
-
-            .script-title {
-                font-size: 0.7rem;
-            }
-
-            .copy-btn {
-                font-size: 0.6rem;
-                padding: 6px 12px;
-            }
-
-            .script-code {
-                font-size: 0.5rem;
-                line-height: 2;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .title {
-                font-size: 1.4rem;
-                letter-spacing: 1px;
-            }
-            
-            .game-btn {
-                font-size: 0.7rem;
-                padding: 10px 30px;
-                min-width: 250px;
-                letter-spacing: 1px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Partículas de fundo -->
-    <div class="particles" id="particles"></div>
-
-    <!-- Título principal -->
-    <h1 class="title">SoyDevZer0</h1>
-
-    <!-- Container dos botões -->
-    <div class="buttons-container">
-        <!-- Botão Emper2P'Hub -->
-        <button class="game-btn" id="emperorBtn">
-            <span>Emperor Hub</span>
-        </button>
-
-        <!-- Container do script -->
-        <div class="script-container" id="scriptContainer">
-            <div class="script-header">
-                <span class="script-title">Emperor Hub Script</span>
-                <button class="copy-btn" id="copyBtn">Copiar</button>
-            </div>
-            <div class="script-code" id="scriptCode">
-                loadstring(game:HttpGet('https://raw.githubusercontent.com/NumbZer0/True-Emperor-Hub/refs/heads/main/EmperorHub.lua'))()
-            </div>
-        </div>
-
-        <!-- Botão KRNL -->
-        <a href="https://krnl.webfiles.pro/file/krnl_release_2.685.797_2025.8.11_43.apk" 
-           class="game-btn krnl-btn" 
-           target="_blank"
-           download>
-            <span>Download KRNL</span>
-        </a>
-    </div>
-
-    <script>
-        // Criar partículas de fundo
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 20;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                // Posição aleatória
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                
-                // Tamanho aleatório
-                const size = Math.random() * 4 + 2;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                
-                // Delay de animação aleatório
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // Elementos
-        const emperorBtn = document.getElementById('emperorBtn');
-        const scriptContainer = document.getElementById('scriptContainer');
-        const copyBtn = document.getElementById('copyBtn');
-        const scriptCode = document.getElementById('scriptCode');
-        
-        let isScriptVisible = false;
-
-        // Toggle do script
-        emperorBtn.addEventListener('click', function() {
-            if (!isScriptVisible) {
-                // Mostrar script
-                scriptContainer.classList.remove('hide');
-                scriptContainer.classList.add('show');
-                emperorBtn.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    emperorBtn.style.transform = 'scale(1)';
-                }, 150);
-            } else {
-                // Esconder script
-                scriptContainer.classList.remove('show');
-                scriptContainer.classList.add('hide');
-                emperorBtn.style.transform = 'scale(1.05)';
-                setTimeout(() => {
-                    emperorBtn.style.transform = 'scale(1)';
-                }, 150);
-            }
-            isScriptVisible = !isScriptVisible;
-        });
-
-        // Função de copiar
-        copyBtn.addEventListener('click', async function() {
-            const textToCopy = scriptCode.textContent;
-            
-            try {
-                await navigator.clipboard.writeText(textToCopy);
-                
-                // Animação de feedback
-                copyBtn.classList.add('copied');
-                copyBtn.textContent = 'Copiado!';
-                
-                setTimeout(() => {
-                    copyBtn.classList.remove('copied');
-                    copyBtn.textContent = 'Copiar';
-                }, 2000);
-                
-            } catch (err) {
-                // Fallback para navegadores mais antigos
-                const textArea = document.createElement('textarea');
-                textArea.value = textToCopy;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                
-                copyBtn.classList.add('copied');
-                copyBtn.textContent = 'Copiado!';
-                
-                setTimeout(() => {
-                    copyBtn.classList.remove('copied');
-                    copyBtn.textContent = 'Copiar';
-                }, 2000);
-            }
-        });
-
-        // Inicializar partículas
-        createParticles();
-
-        // Efeito de hover no título
-        const title = document.querySelector('.title');
-        title.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.1) rotate(1deg)';
-        });
-
-        title.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1) rotate(0deg)';
-        });
-
-        // Efeito sonoro de clique nos botões (visual)
-        document.querySelectorAll('.game-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                this.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.5)';
-                setTimeout(() => {
-                    this.style.boxShadow = '';
-                }, 200);
-            });
-        });
-    </script>
-</body>
 </html>
-partículas
