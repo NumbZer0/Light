@@ -13,7 +13,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            background: #000000;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -36,7 +36,7 @@
 
         .particle {
             position: absolute;
-            background: rgba(0, 255, 255, 0.5);
+            background: rgba(255, 0, 0, 0.7);
             border-radius: 50%;
             animation: float 6s ease-in-out infinite;
         }
@@ -52,15 +52,16 @@
             font-weight: 900;
             text-align: center;
             margin-bottom: 3rem;
-            background: linear-gradient(45deg, #ff0080, #00ffff, #ff0080, #00ffff);
+            background: linear-gradient(45deg, #ff0000, #000000, #ff0000, #000000);
             background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: rgbGlow 2s ease-in-out infinite alternate,
+            animation: rgbGlow 1.5s ease-in-out infinite alternate,
                        textPulse 3s ease-in-out infinite;
-            text-shadow: 0 0 20px rgba(255, 0, 128, 0.5),
-                         0 0 40px rgba(0, 255, 255, 0.5);
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.8),
+                         0 0 40px rgba(255, 0, 0, 0.6),
+                         0 0 60px rgba(255, 0, 0, 0.4);
             letter-spacing: 3px;
         }
 
@@ -82,29 +83,35 @@
 
         /* Botão Emperor Hub */
         .emperor-btn {
-            background: linear-gradient(145deg, #2a2a4a, #1a1a3a);
-            border: 2px solid #00ffff;
+            background: linear-gradient(145deg, #1a1a1a, #000000);
+            border: 2px solid #ff0000;
             border-radius: 15px;
-            color: #00ffff;
+            color: #ff0000;
             font-family: 'Orbitron', monospace;
             font-size: 1.3rem;
             font-weight: 700;
-            padding: 15px 40px;
+            padding: 15px 80px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4),
+                        inset 0 1px 0 rgba(255, 0, 0, 0.1);
             text-transform: uppercase;
             letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            min-width: 350px;
         }
 
         .emperor-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.5);
-            border-color: #ff0080;
-            color: #ff0080;
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.6);
+            border-color: #ff3333;
+            color: #ff3333;
+            background: linear-gradient(145deg, #2a2a2a, #111111);
         }
 
         .emperor-btn:active {
@@ -119,7 +126,7 @@
             left: 50%;
             width: 0;
             height: 0;
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.3), transparent);
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.4), transparent);
             transition: width 0.6s, height 0.6s;
             transform: translate(-50%, -50%);
             border-radius: 50%;
@@ -132,8 +139,8 @@
 
         /* Container do script */
         .script-container {
-            background: rgba(20, 20, 40, 0.9);
-            border: 1px solid #00ffff;
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid #ff0000;
             border-radius: 12px;
             padding: 20px;
             margin-top: 20px;
@@ -141,7 +148,8 @@
             max-width: 600px;
             width: 90%;
             backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3),
+                        0 0 20px rgba(255, 0, 0, 0.1);
             transform: translateY(-20px);
             opacity: 0;
             transition: all 0.5s ease;
@@ -167,21 +175,21 @@
             align-items: center;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.4);
         }
 
         .script-title {
-            color: #00ffff;
+            color: #ff0000;
             font-size: 1.1rem;
             font-weight: 700;
         }
 
         /* Botão de copiar */
         .copy-btn {
-            background: rgba(255, 0, 128, 0.2);
-            border: 1px solid #ff0080;
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #ff0000;
             border-radius: 8px;
-            color: #ff0080;
+            color: #ff0000;
             font-family: 'Orbitron', monospace;
             font-size: 0.9rem;
             padding: 8px 15px;
@@ -190,28 +198,40 @@
         }
 
         .copy-btn:hover {
-            background: rgba(255, 0, 128, 0.3);
+            background: rgba(255, 0, 0, 0.3);
             transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
 
         .copy-btn.copied {
-            background: rgba(0, 255, 0, 0.3);
+            background: rgba(0, 255, 0, 0.2);
             border-color: #00ff00;
             color: #00ff00;
         }
 
         /* Área do código */
         .script-code {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(0, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 0, 0, 0.3);
             border-radius: 8px;
             padding: 15px;
             font-family: 'Courier New', monospace;
             font-size: 0.9rem;
-            color: #00ffff;
+            color: #ff3333;
             word-break: break-all;
             line-height: 1.4;
             user-select: all;
+        }
+
+        /* Seta indicativa */
+        .arrow-icon {
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+
+        .arrow-icon.rotated {
+            transform: rotate(180deg);
         }
 
         /* Responsividade */
@@ -223,7 +243,8 @@
             
             .emperor-btn {
                 font-size: 1.1rem;
-                padding: 12px 30px;
+                padding: 12px 50px;
+                min-width: 300px;
             }
             
             .script-container {
@@ -243,7 +264,8 @@
     <!-- Container do botão -->
     <div class="button-container">
         <button class="emperor-btn" id="emperorBtn">
-            Emperor Hub
+            <span>Emperor Hub</span>
+            <span class="arrow-icon" id="arrowIcon">▼</span>
         </button>
     </div>
 
@@ -289,6 +311,7 @@
         const scriptContainer = document.getElementById('scriptContainer');
         const copyBtn = document.getElementById('copyBtn');
         const scriptCode = document.getElementById('scriptCode');
+        const arrowIcon = document.getElementById('arrowIcon');
         
         let isScriptVisible = false;
 
@@ -298,6 +321,7 @@
                 // Mostrar script
                 scriptContainer.classList.remove('hide');
                 scriptContainer.classList.add('show');
+                arrowIcon.classList.add('rotated');
                 emperorBtn.style.transform = 'scale(0.95)';
                 setTimeout(() => {
                     emperorBtn.style.transform = 'scale(1)';
@@ -306,6 +330,7 @@
                 // Esconder script
                 scriptContainer.classList.remove('show');
                 scriptContainer.classList.add('hide');
+                arrowIcon.classList.remove('rotated');
                 emperorBtn.style.transform = 'scale(1.05)';
                 setTimeout(() => {
                     emperorBtn.style.transform = 'scale(1)';
@@ -363,4 +388,4 @@
         });
     </script>
 </body>
-          </html>
+</html>
