@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,576 +8,234 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Press Start 2P', monospace; }
         body {
-            background:
-                linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
-                url('https://wallpapercave.com/w/wp14775519') center/cover no-repeat fixed,
-                #000000;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            overflow-x: hidden;
-            overflow-y: auto;
-            padding-top: 80px;
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('https://wallpapercave.com/w/wp14775519') center/cover no-repeat fixed, #000000;
+            min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+            overflow-x: hidden; overflow-y: auto; padding-top: 80px;
         }
         .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
-        .particle {
-            position: absolute;
-            background: rgba(255, 0, 0, 0.7);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
+        .particle { position: absolute; background: rgba(255, 0, 0, 0.7); border-radius: 50%; animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(180deg); } }
         
-        /* Menu Hamburguer */
         .menu-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            padding: 10px;
-            background: rgba(0,0,0,0.8);
-            border: 2px solid #ff0000;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            position: fixed; top: 20px; left: 20px; z-index: 1000; cursor: pointer; display: flex; flex-direction: column; gap: 6px; padding: 10px;
+            background: rgba(0,0,0,0.8); border: 2px solid #ff0000; border-radius: 8px; transition: all 0.3s ease;
         }
-        .menu-toggle:hover {
-            border-color: #ff3333;
-            box-shadow: 0 0 15px rgba(255,0,0,0.5);
-        }
-        .menu-toggle span {
-            display: block;
-            width: 30px;
-            height: 3px;
-            background: #ff0000;
-            transition: all 0.3s ease;
-        }
-        .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
-        }
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(8px, -8px);
-        }
+        .menu-toggle:hover { border-color: #ff3333; box-shadow: 0 0 15px rgba(255,0,0,0.5); }
+        .menu-toggle span { display: block; width: 30px; height: 3px; background: #ff0000; transition: all 0.3s ease; }
+        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(8px, -8px); }
         
-        /* Sidebar */
+        .discord-icon-fixed {
+            position: fixed; top: 20px; right: 20px; z-index: 1000; width: 50px; height: 50px; cursor: pointer;
+            transition: all 0.3s ease; filter: drop-shadow(0 0 10px rgba(255,0,0,0.6)); animation: discordPulse 3s ease-in-out infinite;
+        }
+        .discord-icon-fixed:hover { transform: scale(1.2) rotate(10deg); filter: drop-shadow(0 0 20px rgba(255,0,0,1)); }
+        @keyframes discordPulse { 0%, 100% { filter: drop-shadow(0 0 10px rgba(255,0,0,0.6)); } 50% { filter: drop-shadow(0 0 15px rgba(255,0,0,0.9)); } }
+        
         .sidebar {
-            position: fixed;
-            top: 0;
-            left: -300px;
-            width: 300px;
-            height: 100vh;
-            background: rgba(0,0,0,0.98);
-            border-right: 2px solid #ff0000;
-            z-index: 999;
-            transition: left 0.3s ease;
-            overflow-y: auto;
-            padding: 80px 20px 20px;
+            position: fixed; top: 0; left: -300px; width: 300px; height: 100vh; background: rgba(0,0,0,0.98); border-right: 2px solid #ff0000;
+            z-index: 999; transition: left 0.3s ease; overflow-y: auto; padding: 80px 20px 20px;
         }
-        .sidebar.active {
-            left: 0;
-        }
+        .sidebar.active { left: 0; }
         .menu-item {
-            padding: 15px;
-            margin: 10px 0;
-            background: rgba(255,0,0,0.1);
-            border: 1px solid #ff0000;
-            border-radius: 8px;
-            color: #ff0000;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
+            padding: 15px; margin: 10px 0; background: rgba(255,0,0,0.1); border: 1px solid #ff0000; border-radius: 8px;
+            color: #ff0000; font-size: 0.8rem; cursor: pointer; transition: all 0.3s ease; text-align: center;
         }
-        .menu-item:hover {
-            background: rgba(255,0,0,0.2);
-            transform: translateX(5px);
-        }
-        .menu-item.active {
-            background: rgba(255,0,0,0.3);
-            border-color: #ff3333;
-        }
+        .menu-item:hover { background: rgba(255,0,0,0.2); transform: translateX(5px); }
+        .menu-item.active { background: rgba(255,0,0,0.3); border-color: #ff3333; }
         
-        /* Páginas */
-        .page {
-            display: none;
-            width: 100%;
-            min-height: calc(100vh - 80px);
-            padding: 20px;
-        }
-        .page.active {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 998;
-        }
-        .overlay.active {
-            display: block;
-        }
+        .page { display: none; width: 100%; min-height: calc(100vh - 80px); padding: 20px; }
+        .page.active { display: flex; flex-direction: column; align-items: center; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 998; }
+        .overlay.active { display: block; }
         
         .title-container { display: flex; align-items: center; gap: 20px; margin-bottom: 50px; margin-top: 40px; }
         .title {
-            font-size: 3rem;
-            text-align: center;
-            background: linear-gradient(45deg, #ff0000, #000000, #ff0000, #000000);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 3rem; text-align: center; background: linear-gradient(45deg, #ff0000, #000000, #ff0000, #000000);
+            background-size: 400% 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
             animation: rgbGlow 1.5s ease-in-out infinite alternate, textPulse 3s ease-in-out infinite;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
-            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.8); letter-spacing: 3px;
         }
         @keyframes rgbGlow { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
         @keyframes textPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         
-        .discord-icon {
-            width: 50px; height: 50px; cursor: pointer;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 10px rgba(255,0,0,0.6));
-            animation: discordPulse 3s ease-in-out infinite;
-        }
-        .discord-icon:hover {
-            transform: scale(1.2) rotate(10deg);
-            filter: drop-shadow(0 0 20px rgba(255,0,0,1));
-        }
-        @keyframes discordPulse {
-            0%, 100% { filter: drop-shadow(0 0 10px rgba(255,0,0,0.6)); }
-            50% { filter: drop-shadow(0 0 15px rgba(255,0,0,0.9)); }
+        .page-header {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 900; font-size: 1.2rem;
+            color: #ff0000; text-shadow: 0 0 10px rgba(255,0,0,0.8);
         }
         
-        .buttons-container {
-            display: flex; flex-direction: column; gap: 30px; align-items: center; margin-bottom: 2rem; width: 100%;
-        }
+        .buttons-container { display: flex; flex-direction: column; gap: 30px; align-items: center; margin-bottom: 2rem; width: 100%; }
         .game-btn {
-            background: linear-gradient(145deg, #1a1a1a, #000000);
-            border: 2px solid #ff0000;
-            border-radius: 15px;
-            color: #ff0000;
-            font-size: 1rem;
-            padding: 25px 80px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(255,0,0,0.4);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 500px;
-            text-decoration: none;
+            background: linear-gradient(145deg, #1a1a1a, #000000); border: 2px solid #ff0000; border-radius: 15px; color: #ff0000;
+            font-size: 1rem; padding: 25px 80px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(255,0,0,0.4); text-transform: uppercase; letter-spacing: 2px; display: flex;
+            align-items: center; justify-content: center; min-width: 500px; text-decoration: none;
         }
-        .game-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255,0,0,0.6);
-            border-color: #ff3333;
-            color: #ff3333;
-        }
-        
-        .script-btn {
-            position: relative;
-            padding-right: 100px;
-        }
-        .script-btn::after {
-            content: '▼';
-            position: absolute;
-            right: 30px;
-            font-size: 0.8rem;
-            transition: transform 0.3s ease;
-        }
-        .script-btn.active::after {
-            transform: rotate(180deg);
-        }
-        
-        .krnl-btn {
-            border-color: #8a2be2;
-            color: #8a2be2;
-            box-shadow: 0 5px 15px rgba(138,43,226,0.4);
-        }
-        .krnl-btn:hover { 
-            border-color: #9932cc; 
-            color: #9932cc; 
-            box-shadow: 0 8px 25px rgba(138,43,226,0.6);
-        }
+        .game-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,0,0,0.6); border-color: #ff3333; color: #ff3333; }
+        .script-btn { position: relative; padding-right: 100px; }
+        .script-btn::after { content: '▼'; position: absolute; right: 30px; font-size: 0.8rem; transition: transform 0.3s ease; }
+        .script-btn.active::after { transform: rotate(180deg); }
+        .krnl-btn { border-color: #8a2be2; color: #8a2be2; box-shadow: 0 5px 15px rgba(138,43,226,0.4); }
+        .krnl-btn:hover { border-color: #9932cc; color: #9932cc; box-shadow: 0 8px 25px rgba(138,43,226,0.6); }
         
         .script-container {
-            background: rgba(0,0,0,0.95);
-            border: 1px solid #ff0000;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-            position: relative;
-            max-width: 600px;
-            width: 90%;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(255,0,0,0.3);
-            display: none;
-            animation: slideDown 0.3s ease-out;
+            background: rgba(0,0,0,0.95); border: 1px solid #ff0000; border-radius: 12px; padding: 20px; margin: 20px 0;
+            position: relative; max-width: 600px; width: 90%; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(255,0,0,0.3);
+            display: none; animation: slideDown 0.3s ease-out;
         }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .script-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 15px; 
-            padding-bottom: 10px; 
-            border-bottom: 1px solid rgba(255,0,0,0.4);
-        }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .script-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,0,0,0.4); }
         .script-title { color: #ff0000; font-size: 0.8rem;}
         .copy-btn {
-            background: rgba(255,0,0,0.2);
-            border: 1px solid #ff0000;
-            border-radius: 8px;
-            color: #ff0000;
-            font-size: 0.7rem;
-            padding: 8px 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            background: rgba(255,0,0,0.2); border: 1px solid #ff0000; border-radius: 8px; color: #ff0000; font-size: 0.7rem;
+            padding: 8px 15px; cursor: pointer; transition: all 0.3s ease;
         }
-        .copy-btn:hover {
-            background: rgba(255,0,0,0.3);
-            transform: scale(1.05);
-        }
-        .copy-btn.copied {
-            background: rgba(0, 255, 0, 0.2);
-            border-color: #00ff00;
-            color: #00ff00;
-        }
+        .copy-btn:hover { background: rgba(255,0,0,0.3); transform: scale(1.05); }
+        .copy-btn.copied { background: rgba(0, 255, 0, 0.2); border-color: #00ff00; color: #00ff00; }
         .script-code {
-            background: rgba(0,0,0,0.8);
-            border: 1px solid rgba(255,0,0,0.3);
-            border-radius: 8px;
-            padding: 15px;
-            font-size: 0.6rem;
-            color: #ff3333;
-            word-break: break-all;
-            line-height: 1.8;
-            user-select: all;
+            background: rgba(0,0,0,0.8); border: 1px solid rgba(255,0,0,0.3); border-radius: 8px; padding: 15px; font-size: 0.6rem;
+            color: #ff3333; word-break: break-all; line-height: 1.8; user-select: all;
         }
         
-        /* Misc Page */
-        .misc-container {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .misc-header {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+        .misc-container { width: 100%; max-width: 1200px; display: flex; flex-direction: column; gap: 20px; margin-top: 20px; }
+        .misc-header { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
         .misc-btn {
-            background: rgba(0,0,0,0.9);
-            border: 2px solid #ff0000;
-            border-radius: 10px;
-            color: #ff0000;
-            font-size: 0.8rem;
-            padding: 15px 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            background: rgba(0,0,0,0.9); border: 2px solid #ff0000; border-radius: 10px; color: #ff0000; font-size: 1.5rem;
+            padding: 15px 20px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center;
+            justify-content: center; width: 60px; height: 60px;
         }
-        .misc-btn:hover {
-            background: rgba(255,0,0,0.1);
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255,0,0,0.4);
-        }
+        .misc-btn:hover { background: rgba(255,0,0,0.1); transform: scale(1.1); box-shadow: 0 5px 15px rgba(255,0,0,0.4); }
         
-        /* Modals */
         .search-modal, .create-modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.98);
-            border: 2px solid #ff0000;
-            border-radius: 15px;
-            padding: 30px;
-            z-index: 1001;
-            width: 90%;
-            max-width: 500px;
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.98);
+            border: 2px solid #ff0000; border-radius: 15px; padding: 30px; z-index: 1001; width: 90%; max-width: 500px;
         }
-        .create-modal {
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        .search-modal.active, .create-modal.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
-            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        }
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: none;
-            border: none;
-            color: #ff0000;
-            font-size: 1.5rem;
-            cursor: pointer;
-            line-height: 1;
-        }
-        .close-modal:hover {
-            color: #ff3333;
-        }
+        .create-modal { max-width: 600px; max-height: 80vh; overflow-y: auto; }
+        .search-modal.active, .create-modal.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+        .close-modal { position: absolute; top: 10px; right: 15px; background: none; border: none; color: #ff0000; font-size: 1.5rem; cursor: pointer; line-height: 1; }
+        .close-modal:hover { color: #ff3333; }
         
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-label {
-            color: #ff0000;
-            font-size: 0.7rem;
-            margin-bottom: 10px;
-            display: block;
-        }
+        .form-group { margin-bottom: 20px; }
+        .form-label { color: #ff0000; font-size: 0.7rem; margin-bottom: 10px; display: block; }
         .form-input, .form-textarea, .search-input {
-            width: 100%;
-            background: rgba(0,0,0,0.8);
-            border: 1px solid #ff0000;
-            border-radius: 8px;
-            padding: 12px;
-            color: #ff0000;
-            font-size: 0.7rem;
-            font-family: 'Press Start 2P', monospace;
+            width: 100%; background: rgba(0,0,0,0.8); border: 1px solid #ff0000; border-radius: 8px; padding: 12px;
+            color: #ff0000; font-size: 0.7rem; font-family: 'Press Start 2P', monospace;
         }
-        .form-textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        .form-input:focus, .form-textarea:focus, .search-input:focus {
-            outline: none;
-            border-color: #ff3333;
-            box-shadow: 0 0 10px rgba(255,0,0,0.5);
-        }
+        .form-textarea { min-height: 100px; resize: vertical; }
+        .form-input:focus, .form-textarea:focus, .search-input:focus { outline: none; border-color: #ff3333; box-shadow: 0 0 10px rgba(255,0,0,0.5); }
         .image-preview {
-            width: 100%;
-            max-width: 300px;
-            height: 200px;
-            background: rgba(0,0,0,0.8);
-            border: 2px dashed #ff0000;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px 0;
-            overflow: hidden;
+            width: 100%; max-width: 300px; height: 200px; background: rgba(0,0,0,0.8); border: 2px dashed #ff0000; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; margin: 10px 0; overflow: hidden; position: relative;
         }
-        .image-preview img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
+        .image-preview img { max-width: 100%; max-height: 100%; object-fit: cover; }
+        .add-image-btn {
+            background: rgba(255,0,0,0.2); border: 2px solid #ff0000; border-radius: 8px; color: #ff0000;
+            font-size: 0.7rem; padding: 10px 20px; cursor: pointer; transition: all 0.3s ease;
         }
+        .add-image-btn:hover { background: rgba(255,0,0,0.3); transform: scale(1.05); }
+        #imageFile { display: none; }
         .submit-btn {
-            background: rgba(255,0,0,0.2);
-            border: 2px solid #ff0000;
-            border-radius: 10px;
-            color: #ff0000;
-            font-size: 0.8rem;
-            padding: 15px 40px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 10px;
+            background: rgba(255,0,0,0.2); border: 2px solid #ff0000; border-radius: 10px; color: #ff0000; font-size: 0.8rem;
+            padding: 15px 40px; cursor: pointer; transition: all 0.3s ease; width: 100%; margin-top: 10px;
         }
-        .submit-btn:hover {
-            background: rgba(255,0,0,0.3);
-            transform: scale(1.02);
-        }
+        .submit-btn:hover { background: rgba(255,0,0,0.3); transform: scale(1.02); }
         
-        /* Cards */
-        .pages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            width: 100%;
-            margin-top: 20px;
-        }
+        .pages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; width: 100%; margin-top: 20px; }
         .page-card {
-            background: rgba(0,0,0,0.9);
-            border: 2px solid #ff0000;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            background: rgba(0,0,0,0.9); border: 2px solid #ff0000; border-radius: 12px; overflow: hidden;
+            transition: all 0.3s ease; cursor: pointer;
         }
-        .page-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255,0,0,0.4);
-        }
-        .page-card-image {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            background: rgba(255,0,0,0.1);
-        }
-        .page-card-content {
-            padding: 15px;
-        }
-        .page-card-title {
-            color: #ff0000;
-            font-size: 0.7rem;
-            margin-bottom: 10px;
-        }
-        .page-card-desc {
-            color: #ff3333;
-            font-size: 0.5rem;
-            line-height: 1.6;
-        }
+        .page-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255,0,0,0.4); }
+        .page-card-image { width: 100%; height: 150px; object-fit: cover; background: rgba(255,0,0,0.1); }
+        .page-card-content { padding: 15px; }
+        .page-card-title { color: #ff0000; font-size: 0.7rem; margin-bottom: 10px; }
+        .page-card-desc { color: #ff3333; font-size: 0.5rem; line-height: 1.6; }
         
         @media (max-width: 768px) {
-            body { padding-top: 40px;}
-            .title { font-size: 1.8rem;}
-            .discord-icon { width: 40px; height: 40px;}
-            .game-btn { font-size: 0.8rem; padding: 20px 50px; min-width: 380px;}
+            body { padding-top: 40px;} .title { font-size: 1.8rem;} .discord-icon-fixed { width: 40px; height: 40px;}
+            .game-btn { font-size: 0.8rem; padding: 20px 50px; min-width: 380px;} .page-header { font-size: 0.9rem; }
         }
         @media (max-width: 480px) {
-            .title { font-size: 1.4rem;}
-            .game-btn { font-size: 0.7rem; padding: 15px 30px; min-width: 300px;}
+            .title { font-size: 1.4rem;} .game-btn { font-size: 0.7rem; padding: 15px 30px; min-width: 300px;} .page-header { font-size: 0.7rem; }
         }
     </style>
 </head>
 <body>
     <div class="particles" id="particles"></div>
-    
-    <!-- Menu Hamburguer -->
-    <div class="menu-toggle" id="menuToggle">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    
-    <!-- Sidebar -->
+    <div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
+    <svg class="discord-icon-fixed" onclick="openDiscord()" viewBox="0 0 24 24" fill="#ff0000">
+        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.211.375-.445.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+    </svg>
     <div class="sidebar" id="sidebar">
         <div class="menu-item active" data-page="main">Main</div>
         <div class="menu-item" data-page="misc">Misc</div>
     </div>
-    
-    <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
     
-    <!-- Página Main -->
     <div class="page active" id="mainPage">
-        <div class="title-container">
-            <h1 class="title">Spectrum X</h1>
-            <svg class="discord-icon" onclick="openDiscord()" viewBox="0 0 24 24" fill="#ff0000">
-                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.211.375-.445.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
-            </svg>
-        </div>
+        <div class="title-container"><h1 class="title">Spectrum X</h1></div>
         <div class="buttons-container">
-            <button class="game-btn script-btn" id="spectrumBtn">
-                <span>GET SCRIPT</span>
-            </button>
+            <button class="game-btn script-btn" id="spectrumBtn"><span>GET SCRIPT</span></button>
             <div class="script-container" id="scriptContainer">
                 <div class="script-header">
                     <span class="script-title">Spectrum X Script</span>
-                    <button class="copy-btn" id="copyBtn">Copiar</button>
+                    <button class="copy-btn" id="copyBtn">Copy</button>
                 </div>
                 <div class="script-code" id="scriptCode">loadstring(game:HttpGet("https://raw.githubusercontent.com/NumbZer0/Spectrum-X/refs/heads/main/FishIt.lua"))()</div>
             </div>
-            <a href="https://junkie-development.de/flow/ced9bc75-315c-4b04-89b5-3720676f6010"
-               class="game-btn krnl-btn"
-               target="_blank">
-                <span>GET KEY</span>
-            </a>
+            <a href="https://junkie-development.de/flow/ced9bc75-315c-4b04-89b5-3720676f6010" class="game-btn krnl-btn" target="_blank"><span>GET KEY</span></a>
         </div>
     </div>
     
-    <!-- Página Misc -->
     <div class="page" id="miscPage">
-        <div class="title-container">
-            <h1 class="title">Misc</h1>
-        </div>
+        <div class="page-header">Links & Downloads</div>
         <div class="misc-container">
             <div class="misc-header">
-                <button class="misc-btn" id="searchBtn">
-                    <span>🔍</span>
-                    <span>Pesquisar</span>
-                </button>
-                <button class="misc-btn" id="createBtn">
-                    <span>+</span>
-                    <span>Criar Página</span>
-                </button>
+                <button class="misc-btn" id="searchBtn" title="Search">🔍</button>
+                <button class="misc-btn" id="createBtn" title="Create Page">+</button>
             </div>
             <div class="pages-grid" id="pagesGrid"></div>
         </div>
     </div>
     
-    <!-- Modal de Busca -->
     <div class="search-modal" id="searchModal">
         <button class="close-modal" onclick="closeSearchModal()">×</button>
         <div class="form-group">
-            <label class="form-label">Pesquisar páginas</label>
-            <input type="text" class="search-input" id="searchInput" placeholder="Digite para buscar...">
+            <label class="form-label">Search Pages</label>
+            <input type="text" class="search-input" id="searchInput" placeholder="Type to search...">
         </div>
     </div>
     
-    <!-- Modal de Criar Página -->
     <div class="create-modal" id="createModal">
         <button class="close-modal" onclick="closeCreateModal()">×</button>
         <div class="form-group">
-            <label class="form-label">URL da Imagem</label>
-            <input type="text" class="form-input" id="imageUrl" placeholder="https://exemplo.com/imagem.jpg">
+            <label class="form-label">Image</label>
+            <input type="file" id="imageFile" accept="image/*">
             <div class="image-preview" id="imagePreview">
-                <span style="color: #ff0000; font-size: 0.6rem;">Preview</span>
+                <button class="add-image-btn" onclick="document.getElementById('imageFile').click()">Add Image</button>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-label">Título</label>
-            <input type="text" class="form-input" id="pageTitle" placeholder="Digite o título...">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-input" id="pageTitle" placeholder="Enter title...">
         </div>
         <div class="form-group">
-            <label class="form-label">Descrição</label>
-            <textarea class="form-textarea" id="pageDesc" placeholder="Digite a descrição..."></textarea>
+            <label class="form-label">Description</label>
+            <textarea class="form-textarea" id="pageDesc" placeholder="Enter description..."></textarea>
         </div>
         <div class="form-group">
             <label class="form-label">Link</label>
-            <input type="text" class="form-input" id="pageLink" placeholder="https://exemplo.com">
+            <input type="text" class="form-input" id="pageLink" placeholder="https://example.com">
         </div>
-        <button class="submit-btn" onclick="createPage()">Publicar</button>
+        <button class="submit-btn" id="publishBtn">Publish</button>
     </div>
     
     <script>
-        // Partículas
         function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 20;
-            for (let i = 0; i < particleCount; i++) {
+            const p = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
@@ -586,11 +244,10 @@
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
                 particle.style.animationDelay = Math.random() * 6 + 's';
-                particlesContainer.appendChild(particle);
+                p.appendChild(particle);
             }
         }
         
-        // Menu Toggle
         const menuToggle = document.getElementById('menuToggle');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
@@ -609,16 +266,12 @@
             closeCreateModal();
         });
         
-        // Navegação
-        const menuItems = document.querySelectorAll('.menu-item');
-        const pages = document.querySelectorAll('.page');
-        
-        menuItems.forEach(item => {
+        document.querySelectorAll('.menu-item').forEach(item => {
             item.addEventListener('click', () => {
                 const targetPage = item.getAttribute('data-page');
-                menuItems.forEach(mi => mi.classList.remove('active'));
+                document.querySelectorAll('.menu-item').forEach(mi => mi.classList.remove('active'));
                 item.classList.add('active');
-                pages.forEach(page => page.classList.remove('active'));
+                document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
                 document.getElementById(targetPage + 'Page').classList.add('active');
                 menuToggle.classList.remove('active');
                 sidebar.classList.remove('active');
@@ -626,15 +279,10 @@
             });
         });
         
-        // Discord
-        function openDiscord() {
-            window.open('https://discord.gg/R9Cg8rgrcT', '_blank');
-        }
+        function openDiscord() { window.open('https://discord.gg/R9Cg8rgrcT', '_blank'); }
         
-        // Script Toggle
         const spectrumBtn = document.getElementById('spectrumBtn');
         const scriptContainer = document.getElementById('scriptContainer');
-        
         spectrumBtn.addEventListener('click', function() {
             if (scriptContainer.style.display === 'none' || !scriptContainer.style.display) {
                 scriptContainer.style.display = 'block';
@@ -645,35 +293,24 @@
             }
         });
         
-        // Copy Script
         const copyBtn = document.getElementById('copyBtn');
         const scriptCode = document.getElementById('scriptCode');
-        
         copyBtn.addEventListener('click', async function() {
-            const textToCopy = scriptCode.textContent;
             try {
-                await navigator.clipboard.writeText(textToCopy);
+                await navigator.clipboard.writeText(scriptCode.textContent);
                 copyBtn.classList.add('copied');
-                copyBtn.textContent = 'Copiado!';
-                setTimeout(() => {
-                    copyBtn.classList.remove('copied');
-                    copyBtn.textContent = 'Copiar';
-                }, 2000);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => { copyBtn.classList.remove('copied'); copyBtn.textContent = 'Copy'; }, 2000);
             } catch (err) {
                 copyBtn.classList.add('copied');
-                copyBtn.textContent = 'Copiado!';
-                setTimeout(() => {
-                    copyBtn.classList.remove('copied');
-                    copyBtn.textContent = 'Copiar';
-                }, 2000);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => { copyBtn.classList.remove('copied'); copyBtn.textContent = 'Copy'; }, 2000);
             }
         });
         
-        // Misc - Search Modal
         const searchBtn = document.getElementById('searchBtn');
         const searchModal = document.getElementById('searchModal');
         const searchInput = document.getElementById('searchInput');
-        
         searchBtn.addEventListener('click', () => {
             searchModal.classList.add('active');
             overlay.classList.add('active');
@@ -682,16 +319,15 @@
         
         function closeSearchModal() {
             searchModal.classList.remove('active');
-            if (!createModal.classList.contains('active')) {
-                overlay.classList.remove('active');
-            }
+            if (!document.getElementById('createModal').classList.contains('active')) overlay.classList.remove('active');
         }
         
-        // Misc - Create Modal
         const createBtn = document.getElementById('createBtn');
         const createModal = document.getElementById('createModal');
-        const imageUrl = document.getElementById('imageUrl');
+        const imageFile = document.getElementById('imageFile');
         const imagePreview = document.getElementById('imagePreview');
+        const publishBtn = document.getElementById('publishBtn');
+        let selectedImageData = '';
         
         createBtn.addEventListener('click', () => {
             createModal.classList.add('active');
@@ -700,23 +336,131 @@
         
         function closeCreateModal() {
             createModal.classList.remove('active');
-            if (!searchModal.classList.contains('active')) {
-                overlay.classList.remove('active');
-            }
+            if (!searchModal.classList.contains('active')) overlay.classList.remove('active');
         }
         
-        // Preview da imagem
-        imageUrl.addEventListener('input', (e) => {
-            const url = e.target.value;
-            if (url) {
-                imagePreview.innerHTML = `<img src="${url}" alt="Preview" onerror="this.style.display='none'">`;
-            } else {
-                imagePreview.innerHTML = '<span style="color: #ff0000; font-size: 0.6rem;">Preview</span>';
+        imageFile.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    selectedImageData = event.target.result;
+                    imagePreview.innerHTML = `<img src="${selectedImageData}" alt="Preview">`;
+                };
+                reader.readAsDataURL(file);
             }
         });
         
-        // Criar página
-        let customPages = [];
+        async function loadPages() {
+            try {
+                const result = await window.storage.list('page:', true);
+                if (result && result.keys && result.keys.length > 0) {
+                    const pages = [];
+                    for (const key of result.keys) {
+                        try {
+                            const pageData = await window.storage.get(key, true);
+                            if (pageData && pageData.value) {
+                                pages.push(JSON.parse(pageData.value));
+                            }
+                        } catch (e) {
+                            console.log('Error loading page:', e);
+                        }
+                    }
+                    return pages;
+                }
+            } catch (err) {
+                console.log('No pages found or error:', err);
+            }
+            return [];
+        }
         
-        function createPage() {
-            const title
+        async function savePage(page) {
+            const pageId = 'page:' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            try {
+                const result = await window.storage.set(pageId, JSON.stringify(page), true);
+                console.log('Save result:', result);
+                return result !== null;
+            } catch (err) {
+                console.error('Failed to save page:', err);
+                return false;
+            }
+        }
+        
+        publishBtn.addEventListener('click', async function() {
+            const title = document.getElementById('pageTitle').value.trim();
+            const desc = document.getElementById('pageDesc').value.trim();
+            const link = document.getElementById('pageLink').value.trim();
+            
+            if (!title || !desc || !link) { 
+                alert('Please fill in Title, Description and Link!'); 
+                return; 
+            }
+            
+            publishBtn.disabled = true;
+            publishBtn.textContent = 'Publishing...';
+            
+            const newPage = { 
+                title, 
+                desc, 
+                link, 
+                image: selectedImageData || '',
+                timestamp: Date.now()
+            };
+            
+            const saved = await savePage(newPage);
+            
+            if (saved) {
+                await renderPages();
+                closeCreateModal();
+                document.getElementById('pageTitle').value = '';
+                document.getElementById('pageDesc').value = '';
+                document.getElementById('pageLink').value = '';
+                document.getElementById('imageFile').value = '';
+                selectedImageData = '';
+                imagePreview.innerHTML = '<button class="add-image-btn" onclick="document.getElementById(\'imageFile\').click()">Add Image</button>';
+                alert('Page published successfully!');
+            } else {
+                alert('Failed to save page. Please try again.');
+            }
+            
+            publishBtn.disabled = false;
+            publishBtn.textContent = 'Publish';
+        });
+        
+        async function renderPages() {
+            const pages = await loadPages();
+            const pagesGrid = document.getElementById('pagesGrid');
+            pagesGrid.innerHTML = '';
+            
+            if (pages.length === 0) {
+                pagesGrid.innerHTML = '<div style="color: #ff0000; font-size: 0.8rem; text-align: center; width: 100%;">No pages yet. Click + to create one!</div>';
+                return;
+            }
+            
+            pages.forEach(page => {
+                const card = document.createElement('div');
+                card.className = 'page-card';
+                card.onclick = () => window.open(page.link, '_blank');
+                card.innerHTML = `${page.image ? `<img src="${page.image}" class="page-card-image" alt="${page.title}">` : '<div class="page-card-image"></div>'}<div class="page-card-content"><div class="page-card-title">${page.title}</div><div class="page-card-desc">${page.desc}</div></div>`;
+                pagesGrid.appendChild(card);
+            });
+        }
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('.page-card').forEach(card => {
+                const title = card.querySelector('.page-card-title').textContent.toLowerCase();
+                const desc = card.querySelector('.page-card-desc').textContent.toLowerCase();
+                card.style.display = (title.includes(searchTerm) || desc.includes(searchTerm)) ? 'block' : 'none';
+            });
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') { closeSearchModal(); closeCreateModal(); overlay.classList.remove('active'); }
+        });
+        
+        createParticles();
+        renderPages();
+    </script>
+</body>
+</html>
