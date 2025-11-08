@@ -127,9 +127,15 @@
         .form-input:focus, .form-textarea:focus, .search-input:focus { outline: none; border-color: #ff3333; box-shadow: 0 0 10px rgba(255,0,0,0.5); }
         .image-preview {
             width: 100%; max-width: 300px; height: 200px; background: rgba(0,0,0,0.8); border: 2px dashed #ff0000; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center; margin: 10px 0; overflow: hidden;
+            display: flex; align-items: center; justify-content: center; margin: 10px 0; overflow: hidden; position: relative;
         }
         .image-preview img { max-width: 100%; max-height: 100%; object-fit: cover; }
+        .add-image-btn {
+            background: rgba(255,0,0,0.2); border: 2px solid #ff0000; border-radius: 8px; color: #ff0000;
+            font-size: 0.7rem; padding: 10px 20px; cursor: pointer; transition: all 0.3s ease;
+        }
+        .add-image-btn:hover { background: rgba(255,0,0,0.3); transform: scale(1.05); }
+        #imageFile { display: none; }
         .submit-btn {
             background: rgba(255,0,0,0.2); border: 2px solid #ff0000; border-radius: 10px; color: #ff0000; font-size: 0.8rem;
             padding: 15px 40px; cursor: pointer; transition: all 0.3s ease; width: 100%; margin-top: 10px;
@@ -205,9 +211,11 @@
     <div class="create-modal" id="createModal">
         <button class="close-modal" onclick="closeCreateModal()">×</button>
         <div class="form-group">
-            <label class="form-label">Image URL</label>
-            <input type="text" class="form-input" id="imageUrl" placeholder="https://example.com/image.jpg">
-            <div class="image-preview" id="imagePreview"><span style="color: #ff0000; font-size: 0.6rem;">Preview</span></div>
+            <label class="form-label">Image</label>
+            <input type="file" id="imageFile" accept="image/*">
+            <div class="image-preview" id="imagePreview">
+                <button class="add-image-btn" onclick="document.getElementById('imageFile').click()">Add Image</button>
+            </div>
         </div>
         <div class="form-group">
             <label class="form-label">Title</label>
@@ -316,8 +324,10 @@
         
         const createBtn = document.getElementById('createBtn');
         const createModal = document.getElementById('createModal');
-        const imageUrl = document.getElementById('imageUrl');
+        const imageFile = document.getElementById('imageFile');
         const imagePreview = document.getElementById('imagePreview');
+        let selectedImageData = '';
+        
         createBtn.addEventListener('click', () => {
             createModal.classList.add('active');
             overlay.classList.add('active');
@@ -328,9 +338,16 @@
             if (!searchModal.classList.contains('active')) overlay.classList.remove('active');
         }
         
-        imageUrl.addEventListener('input', (e) => {
-            const url = e.target.value;
-            imagePreview.innerHTML = url ? `<img src="${url}" alt="Preview" onerror="this.style.display='none'">` : '<span style="color: #ff0000; font-size: 0.6rem;">Preview</span>';
+        imageFile.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    selectedImageData = event.target.result;
+                    imagePreview.innerHTML = `<img src="${selectedImageData}" alt="Preview">`;
+                };
+                reader.readAsDataURL(file);
+            }
         });
         
         async function loadPages() {
@@ -367,14 +384,13 @@
             const title = document.getElementById('pageTitle').value;
             const desc = document.getElementById('pageDesc').value;
             const link = document.getElementById('pageLink').value;
-            const image = document.getElementById('imageUrl').value;
             
             if (!title || !desc || !link) { 
                 alert('Please fill all required fields!'); 
                 return; 
             }
             
-            const newPage = { title, desc, link, image };
+            const newPage = { title, desc, link, image: selectedImageData };
             const saved = await savePage(newPage);
             
             if (saved) {
@@ -383,8 +399,9 @@
                 document.getElementById('pageTitle').value = '';
                 document.getElementById('pageDesc').value = '';
                 document.getElementById('pageLink').value = '';
-                document.getElementById('imageUrl').value = '';
-                imagePreview.innerHTML = '<span style="color: #ff0000; font-size: 0.6rem;">Preview</span>';
+                document.getElementById('imageFile').value = '';
+                selectedImageData = '';
+                imagePreview.innerHTML = '<button class="add-image-btn" onclick="document.getElementById(\'imageFile\').click()">Add Image</button>';
             } else {
                 alert('Failed to save page. Please try again.');
             }
