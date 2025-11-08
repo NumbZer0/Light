@@ -98,67 +98,84 @@
             color: #ff3333; word-break: break-all; line-height: 1.8; user-select: all;
         }
         
-        .misc-container { width: 100%; max-width: 1200px; display: flex; flex-direction: column; gap: 20px; margin-top: 20px; }
-        .misc-header { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-        .misc-btn {
-            background: rgba(0,0,0,0.9); border: 2px solid #ff0000; border-radius: 10px; color: #ff0000; font-size: 1.5rem;
-            padding: 15px 20px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center;
-            justify-content: center; width: 60px; height: 60px;
+        /* AI Chat Styles */
+        .chat-container {
+            width: 100%; max-width: 900px; height: calc(100vh - 180px); display: flex; flex-direction: column;
+            background: rgba(0,0,0,0.95); border: 2px solid #ff0000; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 10px 40px rgba(255,0,0,0.4);
         }
-        .misc-btn:hover { background: rgba(255,0,0,0.1); transform: scale(1.1); box-shadow: 0 5px 15px rgba(255,0,0,0.4); }
+        .chat-messages {
+            flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px;
+        }
+        .chat-messages::-webkit-scrollbar { width: 8px; }
+        .chat-messages::-webkit-scrollbar-track { background: rgba(0,0,0,0.5); }
+        .chat-messages::-webkit-scrollbar-thumb { background: #ff0000; border-radius: 4px; }
         
-        .search-modal, .create-modal {
-            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.98);
-            border: 2px solid #ff0000; border-radius: 15px; padding: 30px; z-index: 1001; width: 90%; max-width: 500px;
+        .message {
+            display: flex; gap: 10px; animation: messageSlide 0.3s ease;
         }
-        .create-modal { max-width: 600px; max-height: 80vh; overflow-y: auto; }
-        .search-modal.active, .create-modal.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
-        .close-modal { position: absolute; top: 10px; right: 15px; background: none; border: none; color: #ff0000; font-size: 1.5rem; cursor: pointer; line-height: 1; }
-        .close-modal:hover { color: #ff3333; }
+        @keyframes messageSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .form-group { margin-bottom: 20px; }
-        .form-label { color: #ff0000; font-size: 0.7rem; margin-bottom: 10px; display: block; }
-        .form-input, .form-textarea, .search-input {
-            width: 100%; background: rgba(0,0,0,0.8); border: 1px solid #ff0000; border-radius: 8px; padding: 12px;
-            color: #ff0000; font-size: 0.7rem; font-family: 'Press Start 2P', monospace;
+        .message.user { flex-direction: row-reverse; }
+        .message-content {
+            max-width: 70%; padding: 12px 16px; border-radius: 10px; font-size: 0.7rem; line-height: 1.6;
+            word-wrap: break-word;
         }
-        .form-textarea { min-height: 100px; resize: vertical; }
-        .form-input:focus, .form-textarea:focus, .search-input:focus { outline: none; border-color: #ff3333; box-shadow: 0 0 10px rgba(255,0,0,0.5); }
-        .image-preview {
-            width: 100%; max-width: 300px; height: 200px; background: rgba(0,0,0,0.8); border: 2px dashed #ff0000; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center; margin: 10px 0; overflow: hidden; position: relative;
+        .message.user .message-content {
+            background: linear-gradient(145deg, #ff0000, #cc0000); color: #fff;
+            border-bottom-right-radius: 2px;
         }
-        .image-preview img { max-width: 100%; max-height: 100%; object-fit: cover; }
-        .add-image-btn {
-            background: rgba(255,0,0,0.2); border: 2px solid #ff0000; border-radius: 8px; color: #ff0000;
-            font-size: 0.7rem; padding: 10px 20px; cursor: pointer; transition: all 0.3s ease;
+        .message.ai .message-content {
+            background: rgba(255,0,0,0.1); color: #ff3333; border: 1px solid rgba(255,0,0,0.3);
+            border-bottom-left-radius: 2px;
         }
-        .add-image-btn:hover { background: rgba(255,0,0,0.3); transform: scale(1.05); }
-        #imageFile { display: none; }
-        .submit-btn {
-            background: rgba(255,0,0,0.2); border: 2px solid #ff0000; border-radius: 10px; color: #ff0000; font-size: 0.8rem;
-            padding: 15px 40px; cursor: pointer; transition: all 0.3s ease; width: 100%; margin-top: 10px;
+        .message-image {
+            max-width: 300px; border-radius: 8px; margin-top: 8px; border: 2px solid rgba(255,0,0,0.3);
         }
-        .submit-btn:hover { background: rgba(255,0,0,0.3); transform: scale(1.02); }
         
-        .pages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; width: 100%; margin-top: 20px; }
-        .page-card {
-            background: rgba(0,0,0,0.9); border: 2px solid #ff0000; border-radius: 12px; overflow: hidden;
-            transition: all 0.3s ease; cursor: pointer;
+        .chat-input-container {
+            padding: 15px; background: rgba(0,0,0,0.8); border-top: 1px solid rgba(255,0,0,0.3);
+            display: flex; gap: 10px; align-items: center;
         }
-        .page-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255,0,0,0.4); }
-        .page-card-image { width: 100%; height: 150px; object-fit: cover; background: rgba(255,0,0,0.1); }
-        .page-card-content { padding: 15px; }
-        .page-card-title { color: #ff0000; font-size: 0.7rem; margin-bottom: 10px; }
-        .page-card-desc { color: #ff3333; font-size: 0.5rem; line-height: 1.6; }
+        .chat-input {
+            flex: 1; background: rgba(0,0,0,0.8); border: 1px solid #ff0000; border-radius: 10px;
+            padding: 12px 15px; color: #ff0000; font-size: 0.7rem; font-family: 'Press Start 2P', monospace;
+            resize: none; max-height: 120px;
+        }
+        .chat-input:focus { outline: none; border-color: #ff3333; box-shadow: 0 0 10px rgba(255,0,0,0.3); }
+        
+        .chat-button {
+            background: rgba(255,0,0,0.2); border: 2px solid #ff0000; border-radius: 10px; color: #ff0000;
+            padding: 12px 16px; cursor: pointer; transition: all 0.3s ease; font-size: 0.8rem;
+        }
+        .chat-button:hover { background: rgba(255,0,0,0.3); transform: scale(1.05); }
+        .chat-button:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        .attach-btn { padding: 12px; }
+        #fileInput { display: none; }
+        
+        .typing-indicator {
+            display: none; padding: 12px 16px; background: rgba(255,0,0,0.1); border: 1px solid rgba(255,0,0,0.3);
+            border-radius: 10px; width: fit-content; border-bottom-left-radius: 2px;
+        }
+        .typing-indicator.active { display: block; }
+        .typing-indicator span {
+            height: 8px; width: 8px; background: #ff0000; border-radius: 50%; display: inline-block;
+            margin: 0 2px; animation: typing 1.4s infinite;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%, 60%, 100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-10px); } }
         
         @media (max-width: 768px) {
             body { padding-top: 40px;} .title { font-size: 1.8rem;} .discord-icon-fixed { width: 40px; height: 40px;}
             .game-btn { font-size: 0.8rem; padding: 20px 50px; min-width: 380px;} .page-header { font-size: 0.9rem; }
+            .chat-container { height: calc(100vh - 120px); }
+            .message-content { font-size: 0.6rem; max-width: 85%; }
         }
         @media (max-width: 480px) {
             .title { font-size: 1.4rem;} .game-btn { font-size: 0.7rem; padding: 15px 30px; min-width: 300px;} .page-header { font-size: 0.7rem; }
+            .message-content { font-size: 0.55rem; }
         }
     </style>
 </head>
@@ -170,7 +187,7 @@
     </svg>
     <div class="sidebar" id="sidebar">
         <div class="menu-item active" data-page="main">Main</div>
-        <div class="menu-item" data-page="misc">Misc</div>
+        <div class="menu-item" data-page="ai">AI Chat</div>
     </div>
     <div class="overlay" id="overlay"></div>
     
@@ -189,50 +206,27 @@
         </div>
     </div>
     
-    <div class="page" id="miscPage">
-        <div class="page-header">Links & Downloads</div>
-        <div class="misc-container">
-            <div class="misc-header">
-                <button class="misc-btn" id="searchBtn" title="Search">🔍</button>
-                <button class="misc-btn" id="createBtn" title="Create Page">+</button>
+    <div class="page" id="aiPage">
+        <div class="page-header">AI Assistant</div>
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ai">
+                    <div class="message-content">Hello! I'm your AI assistant. I can help you with questions, generate images, and analyze files. How can I help you today?</div>
+                </div>
             </div>
-            <div class="pages-grid" id="pagesGrid"></div>
-        </div>
-    </div>
-    
-    <div class="search-modal" id="searchModal">
-        <button class="close-modal" onclick="closeSearchModal()">×</button>
-        <div class="form-group">
-            <label class="form-label">Search Pages</label>
-            <input type="text" class="search-input" id="searchInput" placeholder="Type to search...">
-        </div>
-    </div>
-    
-    <div class="create-modal" id="createModal">
-        <button class="close-modal" onclick="closeCreateModal()">×</button>
-        <div class="form-group">
-            <label class="form-label">Image</label>
-            <input type="file" id="imageFile" accept="image/*">
-            <div class="image-preview" id="imagePreview">
-                <button class="add-image-btn" onclick="document.getElementById('imageFile').click()">Add Image</button>
+            <div class="chat-input-container">
+                <input type="file" id="fileInput" accept="image/*" multiple>
+                <button class="chat-button attach-btn" onclick="document.getElementById('fileInput').click()">📎</button>
+                <textarea class="chat-input" id="chatInput" placeholder="Type your message..." rows="1"></textarea>
+                <button class="chat-button" id="sendBtn" onclick="sendMessage()">Send</button>
             </div>
         </div>
-        <div class="form-group">
-            <label class="form-label">Title</label>
-            <input type="text" class="form-input" id="pageTitle" placeholder="Enter title...">
-        </div>
-        <div class="form-group">
-            <label class="form-label">Description</label>
-            <textarea class="form-textarea" id="pageDesc" placeholder="Enter description..."></textarea>
-        </div>
-        <div class="form-group">
-            <label class="form-label">Link</label>
-            <input type="text" class="form-input" id="pageLink" placeholder="https://example.com">
-        </div>
-        <button class="submit-btn" onclick="createPage()">Publish</button>
     </div>
     
     <script>
+        const API_KEY = 'AIzaSyAGmpFDE72BHfXNyHGH7Ta769ax5Aj8tdQ';
+        let attachedFiles = [];
+        
         function createParticles() {
             const p = document.getElementById('particles');
             for (let i = 0; i < 20; i++) {
@@ -262,8 +256,6 @@
             menuToggle.classList.remove('active');
             sidebar.classList.remove('active');
             overlay.classList.remove('active');
-            closeSearchModal();
-            closeCreateModal();
         });
         
         document.querySelectorAll('.menu-item').forEach(item => {
@@ -308,132 +300,138 @@
             }
         });
         
-        const searchBtn = document.getElementById('searchBtn');
-        const searchModal = document.getElementById('searchModal');
-        const searchInput = document.getElementById('searchInput');
-        searchBtn.addEventListener('click', () => {
-            searchModal.classList.add('active');
-            overlay.classList.add('active');
-            searchInput.focus();
-        });
+        // AI Chat functionality
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const fileInput = document.getElementById('fileInput');
         
-        function closeSearchModal() {
-            searchModal.classList.remove('active');
-            if (!document.getElementById('createModal').classList.contains('active')) overlay.classList.remove('active');
-        }
-        
-        const createBtn = document.getElementById('createBtn');
-        const createModal = document.getElementById('createModal');
-        const imageFile = document.getElementById('imageFile');
-        const imagePreview = document.getElementById('imagePreview');
-        let selectedImageData = '';
-        
-        createBtn.addEventListener('click', () => {
-            createModal.classList.add('active');
-            overlay.classList.add('active');
-        });
-        
-        function closeCreateModal() {
-            createModal.classList.remove('active');
-            if (!searchModal.classList.contains('active')) overlay.classList.remove('active');
-        }
-        
-        imageFile.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    selectedImageData = event.target.result;
-                    imagePreview.innerHTML = `<img src="${selectedImageData}" alt="Preview">`;
-                };
-                reader.readAsDataURL(file);
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
             }
         });
         
-        async function loadPages() {
-            try {
-                const result = await window.storage.list('page:', true);
-                if (result && result.keys) {
-                    const pages = [];
-                    for (const key of result.keys) {
-                        const pageData = await window.storage.get(key, true);
-                        if (pageData && pageData.value) {
-                            pages.push(JSON.parse(pageData.value));
-                        }
-                    }
-                    return pages;
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        });
+        
+        fileInput.addEventListener('change', async (e) => {
+            const files = Array.from(e.target.files);
+            for (const file of files) {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        attachedFiles.push({
+                            data: event.target.result.split(',')[1],
+                            mimeType: file.type
+                        });
+                        addMessage('user', `📎 Attached: ${file.name}`);
+                    };
+                    reader.readAsDataURL(file);
                 }
-            } catch (err) {
-                console.log('No pages found');
             }
-            return [];
-        }
+            fileInput.value = '';
+        });
         
-        async function savePage(page) {
-            const pageId = 'page:' + Date.now();
-            try {
-                await window.storage.set(pageId, JSON.stringify(page), true);
-                return true;
-            } catch (err) {
-                console.error('Failed to save page:', err);
-                return false;
-            }
-        }
-        
-        async function createPage() {
-            const title = document.getElementById('pageTitle').value;
-            const desc = document.getElementById('pageDesc').value;
-            const link = document.getElementById('pageLink').value;
+        function addMessage(sender, content, isImage = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
             
-            if (!title || !desc || !link) { 
-                alert('Please fill all required fields!'); 
-                return; 
-            }
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
             
-            const newPage = { title, desc, link, image: selectedImageData };
-            const saved = await savePage(newPage);
-            
-            if (saved) {
-                await renderPages();
-                closeCreateModal();
-                document.getElementById('pageTitle').value = '';
-                document.getElementById('pageDesc').value = '';
-                document.getElementById('pageLink').value = '';
-                document.getElementById('imageFile').value = '';
-                selectedImageData = '';
-                imagePreview.innerHTML = '<button class="add-image-btn" onclick="document.getElementById(\'imageFile\').click()">Add Image</button>';
+            if (isImage) {
+                const img = document.createElement('img');
+                img.src = content;
+                img.className = 'message-image';
+                contentDiv.appendChild(img);
             } else {
-                alert('Failed to save page. Please try again.');
+                contentDiv.innerHTML = content.replace(/\n/g, '<br>');
             }
+            
+            messageDiv.appendChild(contentDiv);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
         
-        async function renderPages() {
-            const pages = await loadPages();
-            const pagesGrid = document.getElementById('pagesGrid');
-            pagesGrid.innerHTML = '';
-            pages.forEach(page => {
-                const card = document.createElement('div');
-                card.className = 'page-card';
-                card.onclick = () => window.open(page.link, '_blank');
-                card.innerHTML = `${page.image ? `<img src="${page.image}" class="page-card-image" alt="${page.title}">` : '<div class="page-card-image"></div>'}<div class="page-card-content"><div class="page-card-title">${page.title}</div><div class="page-card-desc">${page.desc}</div></div>`;
-                pagesGrid.appendChild(card);
-            });
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator active';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ai';
+            messageDiv.appendChild(typingDiv);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
         
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            document.querySelectorAll('.page-card').forEach(card => {
-                const title = card.querySelector('.page-card-title').textContent.toLowerCase();
-                const desc = card.querySelector('.page-card-desc').textContent.toLowerCase();
-                card.style.display = (title.includes(searchTerm) || desc.includes(searchTerm)) ? 'block' : 'none';
-            });
-        });
+        function hideTyping() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.parentElement.remove();
+        }
         
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') { closeSearchModal(); closeCreateModal(); overlay.classList.remove('active'); }
-        });
+        async function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message && attachedFiles.length === 0) return;
+            
+            if (message) {
+                addMessage('user', message);
+            }
+            
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+            sendBtn.disabled = true;
+            
+            showTyping();
+            
+            try {
+                const contents = [];
+                
+                if (attachedFiles.length > 0) {
+                    for (const file of attachedFiles) {
+                        contents.push({
+                            inlineData: {
+                                mimeType: file.mimeType,
+                                data: file.data
+                            }
+                        });
+                    }
+                    attachedFiles = [];
+                }
+                
+                if (message) {
+                    contents.push({ text: message });
+                }
+                
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: contents }] })
+                });
+                
+                const data = await response.json();
+                hideTyping();
+                
+                if (data.candidates && data.candidates[0]) {
+                    const aiResponse = data.candidates[0].content.parts[0].text;
+                    addMessage('ai', aiResponse);
+                } else {
+                    addMessage('ai', 'Sorry, I couldn\'t process that request.');
+                }
+            } catch (error) {
+                hideTyping();
+                addMessage('ai', 'Error: ' + error.message);
+            }
+            
+            sendBtn.disabled = false;
+        }
         
         createParticles();
-        renderPages();
     </script>
 </body>
+</html>
