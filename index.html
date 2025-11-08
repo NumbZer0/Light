@@ -351,39 +351,70 @@
             }
         });
         
+        // Use localStorage as fallback
+        let localPages = [];
+        
         async function loadPages() {
+            // Try loading from localStorage first
             try {
-                const result = await window.storage.list('page:', true);
-                if (result && result.keys && result.keys.length > 0) {
-                    const pages = [];
-                    for (const key of result.keys) {
-                        try {
-                            const pageData = await window.storage.get(key, true);
-                            if (pageData && pageData.value) {
-                                pages.push(JSON.parse(pageData.value));
+                const stored = localStorage.getItem('spectrum_pages');
+                if (stored) {
+                    localPages = JSON.parse(stored);
+                    return localPages;
+                }
+            } catch (e) {
+                console.log('LocalStorage error:', e);
+            }
+            
+            // Try loading from window.storage
+            try {
+                if (window.storage) {
+                    const result = await window.storage.list('page:', true);
+                    if (result && result.keys && result.keys.length > 0) {
+                        const pages = [];
+                        for (const key of result.keys) {
+                            try {
+                                const pageData = await window.storage.get(key, true);
+                                if (pageData && pageData.value) {
+                                    pages.push(JSON.parse(pageData.value));
+                                }
+                            } catch (e) {
+                                console.log('Error loading page:', e);
                             }
-                        } catch (e) {
-                            console.log('Error loading page:', e);
+                        }
+                        if (pages.length > 0) {
+                            localPages = pages;
+                            return pages;
                         }
                     }
-                    return pages;
                 }
             } catch (err) {
-                console.log('No pages found or error:', err);
+                console.log('Storage API error:', err);
             }
-            return [];
+            
+            return localPages;
         }
         
         async function savePage(page) {
-            const pageId = 'page:' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            // Save to localStorage first
             try {
-                const result = await window.storage.set(pageId, JSON.stringify(page), true);
-                console.log('Save result:', result);
-                return result !== null;
-            } catch (err) {
-                console.error('Failed to save page:', err);
-                return false;
+                localPages.push(page);
+                localStorage.setItem('spectrum_pages', JSON.stringify(localPages));
+            } catch (e) {
+                console.log('LocalStorage save error:', e);
             }
+            
+            // Try saving to window.storage as well
+            if (window.storage) {
+                const pageId = 'page:' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                try {
+                    await window.storage.set(pageId, JSON.stringify(page), true);
+                } catch (err) {
+                    console.log('Storage API save error:', err);
+                }
+            }
+            
+            return true;
         }
         
         publishBtn.addEventListener('click', async function() {
@@ -399,28 +430,30 @@
             publishBtn.disabled = true;
             publishBtn.textContent = 'Publishing...';
             
-            const newPage = { 
-                title, 
-                desc, 
-                link, 
-                image: selectedImageData || '',
-                timestamp: Date.now()
-            };
-            
-            const saved = await savePage(newPage);
-            
-            if (saved) {
+            try {
+                const newPage = { 
+                    title, 
+                    desc, 
+                    link, 
+                    image: selectedImageData || '',
+                    timestamp: Date.now()
+                };
+                
+                await savePage(newPage);
                 await renderPages();
                 closeCreateModal();
+                
                 document.getElementById('pageTitle').value = '';
                 document.getElementById('pageDesc').value = '';
                 document.getElementById('pageLink').value = '';
                 document.getElementById('imageFile').value = '';
                 selectedImageData = '';
                 imagePreview.innerHTML = '<button class="add-image-btn" onclick="document.getElementById(\'imageFile\').click()">Add Image</button>';
+                
                 alert('Page published successfully!');
-            } else {
-                alert('Failed to save page. Please try again.');
+            } catch (error) {
+                console.error('Publish error:', error);
+                alert('Error publishing page: ' + error.message);
             }
             
             publishBtn.disabled = false;
