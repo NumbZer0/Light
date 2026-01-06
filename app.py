@@ -45,3 +45,13 @@ def verify_key():
 if __name__ == '__main__':
     # Em produção, você usaria Gunicorn ou Waitress
     app.run(host='0.0.0.0', port=5000, debug=True)
+
+import os
+
+# ... (todo o seu código Flask, rotas e KEYS_DATABASE) ...
+
+if __name__ == '__main__':
+    # Usa a porta fornecida pelo ambiente (DigitalOcean) ou 5000 como fallback
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
+    
